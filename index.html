@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع محترف ps2 لدمج ملفات ul.cfg الخاص بألعاب البلاي ستيشن 2</title>
+    <style>
+        html {
+             scroll-behavior: smooth;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            direction: rtl;
+            background-color: black;
+            color: white;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+        }
+        h1 .highlight-red {
+            color: red;
+        }
+        .upload-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+        }
+        .upload-section h2 {
+            color: #00aaff;
+        }
+        .instructions p, .instructions li {
+             line-height: 1.6;
+        }
+        .instructions .instruction-point-3 {
+             color: red; /* النقطة الثالثة باللون الأحمر */
+        }
+        .instructions a {
+            color: #66ccff;
+            text-decoration: none;
+        }
+        .instructions a:hover {
+            text-decoration: underline;
+        }
+        /* تنسيق خانات اختيار الملفات */
+        .file-input-container {
+            margin-bottom: 15px; /* مسافة بين خانات الإدخال */
+        }
+        .file-input-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+        .file-input-container input[type="file"] {
+            display: block; /* يأخذ السطر كاملاً */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #eee;
+            color: #333;
+            width: 95%; /* اجعل العرض أقل قليلاً للسماح بالهامش */
+            max-width: 400px; /* تحديد عرض أقصى */
+            cursor: pointer;
+        }
+
+        /* تنسيق زر الدمج */
+        #mergeButton {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            width: fit-content;
+            margin: 20px auto 0 auto; /* مسافة علوية وتوسيط */
+        }
+        #mergeButton:hover {
+            background-color: #0056b3;
+        }
+        #mergeButton.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* قسم النتائج */
+        #result-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+        }
+        #result-section h2 {
+             color: #00aaff;
+        }
+        #downloadButton {
+             margin-top: 15px;
+             padding: 10px 15px; /* حجم أصغر قليلاً لزر التنزيل */
+             /* التوسيط موروث من #mergeButton إذا لم يتم تغييره */
+             display: block;
+             width: fit-content;
+             margin: 15px auto 0 auto;
+        }
+        #downloadButton:hover {
+             background-color: #0056b3;
+        }
+         /* رسالة الحالة/الخطأ */
+         #status-placeholder {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+         }
+         .status-success {
+             color: #28a745;
+             background-color: rgba(40, 167, 69, 0.1); /* خلفية خضراء شفافة */
+             border: 1px solid rgba(40, 167, 69, 0.3);
+         }
+         .status-error {
+            color: red;
+            background-color: rgba(220, 53, 69, 0.1); /* خلفية حمراء شفافة */
+            border: 1px solid rgba(220, 53, 69, 0.3);
+         }
+         .status-warning {
+             color: #ffc107; /* لون أصفر للتحذير */
+             background-color: rgba(255, 193, 7, 0.1);
+             border: 1px solid rgba(255, 193, 7, 0.3);
+         }
+
+    </style>
+</head>
+<body>
+    <h1>موقع <span class="highlight-red">محترف ps2</span> لدمج ملفات ul.cfg الخاص بألعاب البلاي ستيشن 2</h1>
+
+    <div class="upload-section">
+        <h2>تحميل الملفات</h2>
+
+        <div class="instructions">
+            <p>1- لا تنسى الاشتراك في قناة اليوتيوب: <a href="https://youtube.com/@mohtaref_ps2?si=LlYPwRNuX3ICS0nJ" target="_blank">اضغط هنا للوصول الى القناة</a></p>
+            <p>2- انضم الى قناة التيليكرام و منتدى المتابعين للحل السريع و مجموعة الموضوعات:</p>
+            <ul>
+                <li><a href="https://t.me/mohtaref_ps2_1" target="_blank">رابط قناة التيليكرام</a></li>
+                <li><a href="https://t.me/mohtaref_ps2_2" target="_blank">رابط منتدى المتابعين</a></li>
+                <li><a href="https://t.me/mohtaref_ps2_3" target="_blank">رابط مجموعة الموضوعات</a></li>
+            </ul>
+            <p class="instruction-point-3">3- حدد ملفات ul.cfg التي ترغب في دمجها حيث يمكنك دمج ما يصل الى 5 ملفات.</p>
+            </div>
+
+        <hr style="border-color: #444; margin: 20px 0;">
+
+        <div class="file-input-container">
+            <label for="fileInput1">الملف 1:</label>
+            <input type="file" id="fileInput1" accept=".cfg">
+        </div>
+        <div class="file-input-container">
+            <label for="fileInput2">الملف 2:</label>
+            <input type="file" id="fileInput2" accept=".cfg">
+        </div>
+        <div class="file-input-container">
+            <label for="fileInput3">الملف 3:</label>
+            <input type="file" id="fileInput3" accept=".cfg">
+        </div>
+        <div class="file-input-container">
+            <label for="fileInput4">الملف 4:</label>
+            <input type="file" id="fileInput4" accept=".cfg">
+        </div>
+        <div class="file-input-container">
+            <label for="fileInput5">الملف 5:</label>
+            <input type="file" id="fileInput5" accept=".cfg">
+        </div>
+
+        <button id="mergeButton">دمج الملفات</button>
+    </div>
+
+    <div id="result-section" style="display: none;">
+        <h2>نتيجة الدمج</h2>
+        <p id="status-placeholder" style="display: none;"></p>
+        <button id="downloadButton" style="display: none;">تنزيل الملف المدمج (ul.cfg)</button>
+    </div>
+
+    <script>
+        const mergeButton = document.getElementById('mergeButton');
+        const resultSection = document.getElementById('result-section');
+        const downloadButton = document.getElementById('downloadButton');
+        const statusPlaceholder = document.getElementById('status-placeholder');
+
+        // مصفوفة تحتوي على معرفات خانات الإدخال الخمسة
+        const inputFileIds = ['fileInput1', 'fileInput2', 'fileInput3', 'fileInput4', 'fileInput5'];
+
+        // --- دالة مساعدة لقراءة ملف كـ ArrayBuffer باستخدام Promise ---
+        function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => {
+                    console.error("خطأ في قراءة الملف:", file.name, reader.error);
+                    reject({ file: file, error: reader.error }); // إرجاع اسم الملف مع الخطأ
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        // --- دالة مساعدة لتحديث رسالة الحالة ---
+        function updateStatus(message, type = 'info') {
+            statusPlaceholder.textContent = message;
+            statusPlaceholder.className = ''; // Reset classes
+             if (type === 'success') {
+                 statusPlaceholder.classList.add('status-success');
+             } else if (type === 'error') {
+                 statusPlaceholder.classList.add('status-error');
+             } else if (type === 'warning') {
+                statusPlaceholder.classList.add('status-warning');
+             } else {
+                statusPlaceholder.style.color = 'white'; // Default info color
+             }
+            statusPlaceholder.style.display = 'block';
+             resultSection.style.display = 'block'; // Ensure result section is visible for status
+        }
+
+
+        // --- دالة الدمج الرئيسية (async) ---
+        async function mergeFiles() {
+            // تعطيل الزر وإظهار حالة التحميل
+            mergeButton.disabled = true;
+            mergeButton.classList.add('loading');
+            mergeButton.textContent = 'جاري الدمج...';
+
+            // إخفاء النتائج السابقة وإعادة تعيين الحالة
+            statusPlaceholder.style.display = 'none';
+            resultSection.style.display = 'none';
+            downloadButton.style.display = 'none';
+
+            // 4- تجميع الملفات من خانات الإدخال الخمسة
+            const selectedFiles = [];
+            inputFileIds.forEach(id => {
+                const inputElement = document.getElementById(id);
+                if (inputElement && inputElement.files.length > 0) {
+                    selectedFiles.push(inputElement.files[0]);
+                }
+            });
+
+            // التحقق من وجود ملفات مختارة
+            if (selectedFiles.length < 1) {
+                alert('يرجى اختيار ملف واحد على الأقل.');
+                mergeButton.disabled = false;
+                mergeButton.classList.remove('loading');
+                mergeButton.textContent = 'دمج الملفات';
+                return;
+            }
+            if (selectedFiles.length < 2) {
+                console.warn('تم اختيار ملف واحد فقط. سيتم تجهيزه للتنزيل. للدمج الفعلي، اختر ملفين أو أكثر.');
+                 updateStatus(`تم تحديد ملف واحد فقط (${selectedFiles[0].name}). سيتم تجهيزه للتنزيل بدون دمج.`, 'warning');
+            }
+
+            let fileBuffers = []; // مصفوفة لتخزين ArrayBuffers
+            let readErrorOccurred = false;
+            let errorMessages = [];
+
+            // 4- قراءة الملفات المجمعة
+            for (const file of selectedFiles) {
+                try {
+                    const buffer = await readFileAsArrayBuffer(file);
+                    fileBuffers.push(buffer);
+                } catch (errorInfo) {
+                    readErrorOccurred = true;
+                    const errorMessage = `خطأ في قراءة الملف ${errorInfo.file.name}.`;
+                    errorMessages.push(errorMessage);
+                    console.error(errorMessage, errorInfo.error);
+                    // لا تتوقف، حاول قراءة البقية
+                }
+            }
+
+            // المتابعة إذا تم قراءة ملف واحد على الأقل بنجاح
+            if (fileBuffers.length > 0) {
+                // حساب الحجم الإجمالي للملف المدمج
+                let totalLength = 0;
+                fileBuffers.forEach(buffer => {
+                    totalLength += buffer.byteLength;
+                });
+
+                // إنشاء Uint8Array للملف المدمج بالحجم الإجمالي
+                let mergedArray = new Uint8Array(totalLength);
+                let offset = 0;
+
+                // نسخ بيانات كل ملف (بايت ببايت) إلى المصفوفة المدمجة
+                fileBuffers.forEach(buffer => {
+                    mergedArray.set(new Uint8Array(buffer), offset);
+                    offset += buffer.byteLength;
+                });
+
+                // إنشاء Blob من البيانات الثنائية المدمجة
+                const blob = new Blob([mergedArray], { type: 'application/octet-stream' });
+
+                // إعداد زر التنزيل
+                downloadButton.style.display = 'block';
+                downloadButton.onclick = function() {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'ul.cfg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                };
+
+                // عرض رسالة الحالة النهائية
+                 if (readErrorOccurred) {
+                     const mainMsg = `تم دمج ${fileBuffers.length} ملف(ات) بنجاح، لكن حدثت أخطاء في قراءة ${errorMessages.length} ملف(ات). الملف المتاح للتنزيل قد يكون غير مكتمل.`;
+                     updateStatus(mainMsg + '\n' + errorMessages.join('\n'), 'error');
+                 } else if (selectedFiles.length < 2 && fileBuffers.length === 1) {
+                     // الحالة الخاصة بملف واحد ناجح
+                     updateStatus(`تم تجهيز الملف ${selectedFiles[0].name} للتنزيل.`, 'success');
+                 } else {
+                     updateStatus(`تم دمج ${fileBuffers.length} ملف(ات) بنجاح.`, 'success');
+                 }
+
+
+                // الانتقال التلقائي لزر التحميل
+                setTimeout(() => {
+                   downloadButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+
+            } else {
+                // لم يتم قراءة أي ملف بنجاح
+                 updateStatus('فشل قراءة جميع الملفات المحددة.\n' + errorMessages.join('\n'), 'error');
+                downloadButton.style.display = 'none';
+                 // الانتقال التلقائي إلى قسم النتائج لإظهار الخطأ
+                 setTimeout(() => {
+                     resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                 }, 0);
+            }
+
+             // إعادة تمكين الزر بعد اكتمال العملية
+             mergeButton.disabled = false;
+             mergeButton.classList.remove('loading');
+             mergeButton.textContent = 'دمج الملفات';
+        }
+
+        // ربط الدالة بحدث النقر على الزر
+        mergeButton.addEventListener('click', mergeFiles);
+
+    </script>
+</body>
+</html>
